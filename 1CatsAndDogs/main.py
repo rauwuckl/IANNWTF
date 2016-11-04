@@ -128,7 +128,7 @@ class DataHandle:
 
 # target value -1 cat; +1 dog
 
-def plotErrorSurface(density, wH1, wH2):
+def plotErrorSurface(density, wH1a, wH2a, wH1b, wH2b):
 	mlp = MLP()
 	dh = DataHandle()
 	data, label = dh.returnLabledBoth()
@@ -153,8 +153,10 @@ def plotErrorSurface(density, wH1, wH2):
 	################
 	plt.figure()
 	cp = plt.contourf(W1, W2, allMse)
-	plt.plot(wH1,wH2,c='black')
+	plt.plot(wH1a,wH2a,c='black', label='stochastic')
+	plt.plot(wH1b,wH2b,c='green', label='batch')
 	plt.colorbar(cp)
+	plt.legend()
 	plt.show()
 
 
@@ -167,5 +169,9 @@ def plotErrorSurface(density, wH1, wH2):
 	
 		
 plt.close("all")
-mlp = MLP()	
+mlp1 = MLP()	
+mlp2 = MLP()
+mlp1.stochasticGD(10000)
+mlp2.batchGD(1000)
+plotErrorSurface(200, mlp1.w1History, mlp1.w2History, mlp2.w1History, mlp2.w2History)
 	
