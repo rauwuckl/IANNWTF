@@ -28,7 +28,7 @@ class MLP:
             self.weights = [float(np.random.rand(1)) for l in range(self.layers-1)]
         elif init == 'LeCun':
             self.weights = [float(np.random.normal(0,1/np.sqrt(self.neuPerL[l]),1)) for l in range(self.layers-1)]
-        self.oldWeights = self.weights
+        self.lastChanges = [0 for k in self.weights]
   
               
     def tanh(self,x):
@@ -85,9 +85,9 @@ class MLP:
     
     def adaptWeights(self):
         for l in range(len(self.weights)):
-            tmp = self.weights[l]
-            self.weights[l] = self.weights[l] - self.LR * self.deltas[l] * self.activation[l] # + self.mom * self.oldWeights[l]
-            self.oldWeights[l] = tmp
+            tmp =  self.LR * self.deltas[l] * self.activation[l] + self.mom * self.lastChanges[l]
+            self.weights[l] = self.weights[l] - tmp
+            self.lastChanges[l] = tmp
 
     def test(self,data,targ):
         correct = 0
