@@ -31,6 +31,8 @@ class MLP():
         #self.cross_entropy = tf.reduce_mean(-elementwiseEntropie) 
         #print("cross entropie: {}, elementwiseEntropie: {}".format(self.cross_entropy.get_shape(), elementwiseEntropie.get_shape()))
         self.minimizer = tf.train.GradientDescentOptimizer(0.5).minimize(self.cross_entropy)
+        self.gradients = tf.gradients(self.cross_entropy)
+        print("bla: {}".format(self.gradients.get_shape()))
 
         correct_prediction = tf.equal(tf.cast(tf.argmax(self.outputFirstLayer,1), tf.int32), self.targets)
         self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
@@ -64,7 +66,7 @@ class MLP():
 
 
 m = MLP()
-N = 90
+N = 10
 
 with tf.Session() as sess:
     sess.run(tf.initialize_all_variables())
