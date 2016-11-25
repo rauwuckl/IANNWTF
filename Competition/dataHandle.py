@@ -92,4 +92,3 @@ def preprocessImages(pathOriginal, pathTarget, function):
 
 
 
-m = DataHandle()

@@ -101,7 +101,7 @@ data = dataHandle.DataHandle()
 
 savePath = 'saves/run1.cpkt'
 restorePath = 'saves/run1.cpkt'
-#restorePath = None
+restorePath = None
 
 trainingAccuracy = []
 validationAccuracy = []
@@ -146,10 +146,10 @@ def trainNetwork(trainingSteps):
             path= saver.save(session, savePath)
             print("path: {}".format(path))
 
-        plt.ion()
-        plt.figure()
-        plt.scatter(range(trainingSteps), netPrediction, c='r', label='Networks Estimate')
-        plt.scatter(range(trainingSteps), netPrediction, c='r', label='Networks Estimate')
+        #plt.ion()
+        #plt.figure()
+        #plt.scatter(range(trainingSteps), netPrediction, c='r', label='Networks Estimate')
+        #plt.scatter(range(trainingSteps), netPrediction, c='r', label='Networks Estimate')
 
         _accuracy = [session.run(accuracy, feed_dict = {x: images, desired: labels}) for images, labels in data.getValidationIterator(300)]
         print("accuracys: {}".format(_accuracy))
